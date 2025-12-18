@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deal Placement View</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <h2>Deal–Placement View : <span id="currentDealId">DL-1009</span></h2>
+    <button id="backToDeals" class="btn-secondary" style="margin-left: auto; background: #6c757d;">← Back to Deals</button>
+  </header>
+
+  <!-- === DEAL INFORMATION (Read-only from parent deal) === -->
+  <section class="deal-info">
+    <h3>Deal Information</h3>
+    <div class="form-grid">
+      <div class="form-row"><label>Deal Name</label><input type="text" id="dealNameDisplay" readonly></div>
+      <div class="form-row"><label>Client Name</label><input type="text" id="clientNameDisplay" readonly></div>
+      <div class="form-row"><label>Deal Type</label><input type="text" id="dealTypeDisplay" readonly></div>
+      <div class="form-row"><label>Booked Revenue (Deal Currency)</label><input type="text" id="bookedRevenueDisplay" readonly></div>
+
+      <div class="form-row"><label>Vertical</label><input type="text" id="verticalDisplay" readonly></div>
+      <div class="form-row"><label>Brand Name</label><input type="text" id="brandNameDisplay" readonly></div>
+      <div class="form-row"><label>Sales Group</label><input type="text" id="salesGroupDisplay" readonly></div>
+      <div class="form-row"><label>Booked Revenue (Exec. Currency)</label><input type="text" id="execRevenueDisplay" readonly></div>
+
+      <div class="form-row"><label>Agency Name</label><input type="text" id="agencyNameDisplay" readonly></div>
+      <div class="form-row"><label>Advertiser Name</label><input type="text" id="advertiserNameDisplay" readonly></div>
+      <div class="form-row"><label>Product Category</label><input type="text" id="productCategoryDisplay" readonly></div>
+      <div class="form-row"><label>Start Date</label><input type="date" id="startDateDisplay" readonly></div>
+
+      <div class="form-row"><label>Channel Name</label><input type="text" id="channelNameDisplay" readonly></div>
+      <div class="form-row"><label>End Date</label><input type="date" id="endDateDisplay" readonly></div>
+      <div class="form-row"><label>Plant</label><input type="text" id="plantDisplay" readonly></div>
+      <div class="form-row"><label>Zone</label><input type="text" id="zoneDisplay" readonly></div>
+    </div>
+  </section>
+
+  <!-- === ACTION BUTTON === -->
+  <div class="actions">
+    <button id="addPlacementBtn" class="btn-primary">Add Placement</button>
+  </div>
+
+  <!-- === PLACEMENT TABLE === -->
+ <!-- === PLACEMENT TABLE === -->
+<section class="placement-section">
+  <div class="table-container">
+    <table class="placement-table">
+      <thead>
+        <tr>
+          <th>Edit</th>
+          <th>Booking</th>
+          <th>Placement ID</th>
+          <th>Allocation Name/Description</th>
+          <th>Channel Name</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Booked Revenue in Deal Currency</th>
+          <th>Delivered Revenue</th>
+          <th>Balance Revenue</th>
+          <th>Booked Quantity(in Seconds)</th>
+          <th>Delivered Quantity</th>
+          <th>Remaining Quantity</th>
+          <th>Billing Type</th>
+          <th>Placement Status</th>
+          <th>Ad Server Name</th>
+          <th>Client Name</th>
+          <th>Brand Name</th>
+          <th>Product Category</th>
+          <th>Buy Type</th>
+          <th>Ad Format</th>
+          <th>Spot Type</th>
+          <th>Platform</th>
+          <th>Stream</th>
+          <th>Material Number</th>
+          <th>Targeting</th>
+          <th>RO Number</th>
+          <th>Rate in Deal Currency</th>
+          <th>Deal Currency</th>
+          <th>Rate(in Execution Currency)</th>
+          <th>Execution Currency Conversion Rate</th>
+          <th>Booked Revenue in Execution Currency</th>
+          <th>Total Spots</th>
+          <th>Delivered Revenue in Execution Currency</th>
+          <th>Comments</th>
+          <th>Copy</th>
+          <th>Delete</th>
+          <th>Attachments</th>
+          <th>Updated By</th>
+          <th>Updated At</th>
+          <th>Created By</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody id="placementTableBody">
+        <!-- Placements will be loaded here -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+  <!-- === ADD PLACEMENT POPUP === -->
+  <div id="placementPopup" class="overlay">
+    <div class="popup placement-popup">
+      <h3>Add New Placement</h3>
+      <form id="placementForm">
+        <div class="form-two-column">
+          <div class="col">
+            <label>Billing Type*</label>
+            <input type="text" id="billingType" value="Standard" readonly>
+            
+            <label>Start Date*</label>
+            <input type="date" required id="startDate">
+            
+            <label>Client Name*</label>
+<select id="clientName" required>
+  <option value="">Select Client</option>
+</select>
+            
+            <label>Product Category*</label>
+            <input type="text" id="productCategory" readonly>
+            
+            <label>Buy Type*</label>
+            <select required id="buyType">
+              <option value="">Select Buy Type</option>
+              <option value="FCT">FCT</option>
+              <option value="SPT">SPT</option>
+              <option value="Programmatic">Programmatic</option>
+              <option value="Direct">Direct</option>
+            </select>
+            
+            <label>Spot Type*</label>
+            <select required id="spotType">
+              <option value="">Select Spot Type</option>
+              <option value="Original">Original</option>
+              <option value="Sponsorship">Sponsorship</option>
+              <option value="Promo">Promo</option>
+              <option value="Bumper">Bumper</option>
+            </select>
+            
+            <label>Time Band*</label>
+            <div class="time-row">
+              <input type="time" required id="timeBandStart">
+              <span>to</span>
+              <input type="time" required id="timeBandEnd">
+            </div>
+            
+            <label>Restricted Time Band*</label>
+            <div class="time-row">
+              <input type="time" required id="restrictedTimeStart">
+              <span>to</span>
+              <input type="time" required id="restrictedTimeEnd">
+            </div>
+            
+            <label>Creative ID*</label>
+            <select required id="creativeId" multiple>
+              <option value="CRE-001">CRE-001</option>
+              <option value="CRE-002">CRE-002</option>
+              <option value="CRE-003">CRE-003</option>
+              <option value="CRE-004">CRE-004</option>
+            </select>
+            <small>Hold Ctrl to select multiple</small>
+            
+            <label>Booked Quantity (Sec)*</label>
+            <input type="number" value="20" required id="bookedQuantity">
+            
+            <label>Rate*</label>
+            <input type="number" value="5" required id="rate" step="0.01">
+            
+            <label>Stream</label>
+            <select id="stream">
+              <option value="">Select Stream</option>
+              <option value="English">English</option>
+              <option value="Hindi">Hindi</option>
+              
+            </select>
+            
+            <label>Targeting</label>
+            <select id="targeting">
+              <option value="">Select Targeting</option>
+              <option value="Geo-Targeting">Geo-Targeting</option>
+              <option value="Demographic">Demographic</option>
+              <option value="Behavioral">Behavioral</option>
+              <option value="Contextual">Contextual</option>
+            </select>
+            
+            <label>Placement Comments</label>
+            <textarea id="placementComments" placeholder="Placement Comments" rows="3"></textarea>
+          </div>
+
+          <div class="col">
+            <label>Ad Server Name*</label>
+            <select required id="adServer">
+              <option value="">Select Ad Server</option>
+              <option value="Vidgyor" selected>Vidgyor</option>
+              <option value="Google Ad Manager">Google Ad Manager</option>
+              <option value="FreeWheel">FreeWheel</option>
+              <option value="SpotX">SpotX</option>
+            </select>
+            
+            <label>End Date*</label>
+            <input type="date" required id="endDate">
+            
+            <label>Brand Name*</label>
+<select id="brandName" required>
+  <option value="">Select Brand</option>
+</select>
+            
+            <label>Channel Name*</label>
+            <input type="text" id="channelName" readonly>
+            
+            <label>Ad Format*</label>
+            <select required id="adFormat">
+              <option value="">Select Ad Format</option>
+              <option value="Mid-Roll">Mid-Roll</option>
+              <option value="Pre-Roll">Pre-Roll</option>
+              <option value="L-Band">L-Band</option>
+              
+            </select>
+            
+            <label>Platform*</label>
+            <select required id="platform">
+              <option value="">Select Platform</option>
+              <option value="CTV">CTV</option>
+              <option value="Mobile">Mobile</option>
+              <option value="Desktop">Desktop</option>
+              <option value="Tablet">Tablet</option>
+            </select>
+            
+            <label>Restricted*</label>
+            <select required id="restricted">
+              <option value="">Select</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            
+            <label>Duration*</label>
+            <select required id="duration">
+              <option value="">Select Duration</option>
+              <option value="10">10 seconds</option>
+              <option value="15">15 seconds</option>
+              <option value="20">20 seconds</option>
+              <option value="30">30 seconds</option>
+              <option value="45">45 seconds</option>
+              <option value="60">60 seconds</option>
+            </select>
+            
+            <label>RO Number</label>
+            <input type="text" id="roNumber" placeholder="RO Number">
+            
+            <label>Total Spots</label>
+            <input type="number" id="totalSpots" readonly placeholder="Auto-calculated">
+            
+            <label>Booked Revenue (Deal Currency)*</label>
+            <input type="number" id="bookedRevenue" readonly placeholder="Auto-calculated">
+            
+            <label>Material Number</label>
+            <select id="materialNumber">
+              <option value="">Select Material</option>
+              <option value="TV9_ABC">TV9_ABC</option>
+              <option value="TV9_XYZ">TV9_XYZ</option>
+              
+            </select>
+            
+           <label>Campaign Manager</label>
+<select id="campaignManager">
+  <option value="">Select Manager</option>
+  <option value="Akash Anand">Akash Anand</option>
+  <option value="Ankit Singh">Ankit Singh</option>
+  <option value="Vikas Modi">Vikas Modi</option>
+  <option value="Ashish Gupta">Ashish Gupta</option>
+  <option value="Nitin Mittal">Nitin Mittal</option>
+</select>
+            <label>Placement Comments</label>
+            <textarea id="placementComments2" placeholder="Placement Comments" rows="3"></textarea>
+            
+            <!-- Auto-generated Placement Name -->
+            <input type="hidden" id="autoPlacementName">
+          </div>
+        </div>
+
+        <div class="buttons-row">
+          <button type="button" id="cancelBtn" class="btn-cancel">Cancel</button>
+          <button type="submit" id="saveExitBtn" class="btn-save">Save & Exit</button>
+          <button type="button" id="saveContinueBtn" class="btn-save">Save & Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="deal-placement.js"></script>
+</body>
+</html>

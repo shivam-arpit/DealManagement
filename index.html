@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deal Management</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <h2>Deal Management System</h2>
+  </header>
+
+  <!-- === ACTION BUTTON === -->
+  <div class="actions">
+    <button id="createDealBtn" class="btn-primary">Create New Deal</button>
+  </div>
+
+  <!-- === DEALS TABLE === -->
+  <section class="deal-section">
+    <div class="table-container">
+      <table class="placement-table">
+        <thead>
+          <tr>
+            <th>Edit</th>
+            <th>Deal ID</th>
+            <th>Advertiser Name</th>
+            <th>Channel Name</th>
+            <th>Deal Start Date</th>
+            <th>Deal End Date</th>
+            <th>Sales Group</th>
+            <th>Deal Type</th>
+            <th>Deal Status</th>
+            <th>Deal Name</th>
+            <th>Vertical</th>
+            <th>Agency Name</th>
+            <th>Client Name</th>
+            <th>Brand Name</th>
+            <th>Product Category</th>
+            <th>Deal Currency</th>
+            <th>Booked Revenue in Deal Currency</th>
+            <th>Currency Conversion Rate</th>
+            <th>Booked Revenue in Execution Currency</th>
+            <th>UnAllocated Revenue in Deal Currency</th>
+            <th>Sales Person</th>
+            <th>Zone</th>
+            <th>Plant</th>
+            <th>Comments</th>
+            <th>Updated By</th>
+            <th>Updated At</th>
+            <th>Created By</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody id="dealsTableBody">
+          <!-- Deals will be loaded here -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- === CREATE/EDIT DEAL POPUP === -->
+  <div id="dealPopup" class="overlay">
+    <div class="popup deal-popup">
+      <h3 id="popupTitle">Create New Deal</h3>
+     <form id="dealForm">
+  <div class="form-two-column">
+    <div class="col">
+      <div class="form-group">
+        <label for="dealName">Deal Name*</label>
+        <input type="text" id="dealName" placeholder="Enter deal name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="dealType">Deal Type*</label>
+        <select id="dealType" required>
+          <option value="">Select Deal Type</option>
+          <option value="Direct">Direct</option>
+          <option value="Agency">Agency</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="agencyName">Agency Name*</label>
+        <select id="agencyName" required>
+          <option value="">Select Agency</option>
+          <option value="Matrix Publicities And Media">Matrix Publicities And Media</option>
+          <option value="Omnicom Media Group">Omnicom Media Group</option>
+          <option value="Group M Media India">Group M Media India</option>
+          <option value="Mediaedge Cia India">Mediaedge Cia India</option>
+          <option value="FCB Ulka Advertising">FCB Ulka Advertising</option>
+          <option value="Lookad India Pvt Ltd.(Kolkatta)">Lookad India Pvt Ltd.(Kolkatta)</option>
+        </select>
+      </div>
+      
+    <div class="form-group">
+  <label for="brandName">Brand Name*</label>
+  <select id="brandName" multiple size="4" required> 
+    <option value="">Select Brand Name</option>
+    <option value="IPhone 17">IPhone 17</option>
+    <option value="Mutual Fund">Mutual Fund</option>
+    <option value="FABRICA">FABRICA</option>
+    <option value="REALEDGE">REALEDGE</option>
+    <option value="SRMB TMT">SRMB TMT</option>
+  </select>
+</div>
+      
+      <div class="form-group">
+        <label for="channelName">Channel Name*</label>
+        <select id="channelName" multiple required>
+          <option value="">Select Channel Name</option>
+          <option value="TV9 Bangla">TV9 Bangla</option>
+          <option value="TV9 Marathi">TV9 Marathi</option>
+          <option value="TV9 Bharatvarsh">TV9 Bharatvarsh</option>
+        </select>
+        <small>Hold Ctrl to select multiple channels</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="plant">Plant*</label>
+        <select id="plant" required>
+          <option value="">Select Plant</option>
+          <option value="Maharashtra">Maharashtra</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Haryana">Haryana</option>
+          <option value="Karnataka">Karnataka</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="salesGroup">Sales Group*</label>
+        <select id="salesGroup" required>
+          <option value="">Select Sales Group</option>
+          <option value="LCS">LCS</option>
+          <option value="SMB">SMB</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="startDate">Start Date*</label>
+        <input type="date" id="startDate" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="endDate">End Date*</label>
+        <input type="date" id="endDate" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="executionCurrency">Execution Currency*</label>
+        <input type="text" id="executionCurrency" value="INR" readonly>
+      </div>
+      
+      <div class="form-group">
+        <label for="bookedRevenue">Booked Revenue*</label>
+        <input type="number" id="bookedRevenue" placeholder="Enter booked revenue" min="0" step="0.01" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="bookedRevenueExecCurrency">Booked Revenue in Execution Currency*</label>
+        <input type="number" id="bookedRevenueExecCurrency" readonly>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        <label for="vertical">Vertical*</label>
+        <select id="vertical" required>
+          <option value="">Select Vertical</option>
+          <option value="TV">TV</option>
+          <option value="Digital">Digital</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="advertiserName">Advertiser Name*</label>
+        <select id="advertiserName" required>
+          <option value="">Select Advertiser Name</option>
+          <option value="Apple India Pvt.Ltd">Apple India Pvt.Ltd</option>
+          <option value="DSP Mutual Fund">DSP Mutual Fund</option>
+          <option value="SBI Life Insurance">SBI Life Insurance</option>
+          <option value="SHRIRAM FINANCE">SHRIRAM FINANCE</option>
+          <option value="Truecaller International">Truecaller International</option>
+          <option value="Lookad India Pvt Ltd.">Lookad India Pvt Ltd.</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+  <label for="clientName">Client Name*</label>
+  <select id="clientName" multiple size="4" required>
+    <option value="">Select Client Name</option>
+    <option value="Apple India Pvt.Ltd">Apple India Pvt.Ltd</option>
+    <option value="DSP Mutual Fund">DSP Mutual Fund</option>
+    <option value="SBI Life Insurance">SBI Life Insurance</option>
+    <option value="SHRIRAM FINANCE">SHRIRAM FINANCE</option>
+    <option value="Truecaller International">Truecaller International</option>
+    <option value="SRMB Srijan Pvt Ltd">SRMB Srijan Pvt Ltd</option>
+  </select>
+</div>
+      
+      <div class="form-group">
+        <label for="productCategory">Product Category*</label>
+        <select id="productCategory" required>
+          <option value="">Select Product Category</option>
+          <option value="Gadget">Gadget</option>
+          <option value="Finance">Finance</option>
+          <option value="Finance">Finance</option>
+          <option value="Finance">Finance</option>
+          <option value="Mobile Application">Mobile Application</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="salesPerson">Sales Person*</label>
+        <select id="salesPerson" required>
+          <option value="">Select Sales Person</option>
+          <option value="Akash Anand">Akash Anand</option>
+          <option value="Ankit Singh">Ankit Singh</option>
+          <option value="Vikas Modi">Vikas Modi</option>
+          <option value="Ashish Gupta">Ashish Gupta</option>
+          <option value="Nitin Mittal">Nitin Mittal</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="zone">Zone*</label>
+        <select id="zone" required>
+          <option value="">Select Zone</option>
+          <option value="East">East</option>
+          <option value="West">West</option>
+          <option value="North">North</option>
+          <option value="South">South</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="dealCurrency">Deal Currency*</label>
+        <select id="dealCurrency" required>
+          <option value="">Select Currency</option>
+          <option value="INR">INR</option>
+          <option value="GBP">GBP</option>
+          <option value="USD">USD</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="conversionRate">Currency Conversion Rate*</label>
+        <input type="number" id="conversionRate" value="1" min="0" step="0.0001" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="bookedRevenueDealCurrency">Booked Revenue in Deal Currency*</label>
+        <input type="number" id="bookedRevenueDealCurrency" readonly>
+      </div>
+    </div>
+  </div>
+
+  <div class="buttons-row">
+    <button type="button" id="dealCancelBtn" class="btn-cancel">Cancel</button>
+    <button type="submit" id="dealSaveBtn" class="btn-save">Save Deal</button>
+    <button type="button" id="saveContinuePlacementBtn" class="btn-save">Save & Continue with Placement</button>
+  </div>
+</form>
+    </div>
+  </div>
+
+  <script src="deal-management.js"></script>
+</body>
+</html>
